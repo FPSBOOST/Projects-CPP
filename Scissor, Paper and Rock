@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string a = "Papel";
+    string b = "Tesoura";
+    string c = "Pedra";
+    string e;
+
+    srand(time(0));
+
+    int P = rand() % 10;
+
+    cout << "Escolha entre papel, tesoura e pedra:" << endl;
+    cin >> e;
+
+    //Randomização de escolha do computador
+    if (P <=3) {
+        cout << "O computador escolhe:" << " " << a << endl;
+    }
+    else if (P >= 4 && P <= 6) {
+        cout << "O computador escolhe:" << " " << b << endl;
+    }
+    if (P >= 7) {
+        cout << "O computador escolhe:" << " " << c << endl;
+    }
+
+    //Verificação de vitoria com o str "a"
+    if (e == "Papel" && P <= 3) {
+        cout << "Empate!" << endl;
+    }
+    if (e == "Tesoura" && P <= 3) {
+        cout << "Voce venceu!" << endl;
+    }
+    if (e == "Pedra" && P <= 3) {
+        cout << "Voce perdeu!" << endl;
+    }
+
+    //Verificação de vitoria com o str "b"
+    if (e == "Papel" && P >= 4 && P <= 6) {
+        cout << "Voce perdeu!" << endl;
+    }
+    if (e == "Tesoura" && P >= 4 && P <= 6) {
+        cout << "Empate!" << endl;
+    }
+    if (e == "Pedra" && P >= 4 && P <= 6) {
+        cout << "Voce venceu!" << endl;
+    }
+
+    //Verificação de vitoria com o str "c"
+    if (e == "Papel" && P >= 7) {
+        cout << "Voce venceu!" << endl;
+    }
+    if (e == "Tesoura" && P >= 7 ) {
+        cout << "Voce perdeu!" << endl;
+    }
+    if (e == "Pedra" && P >= 7 ) {
+        cout << "Empate!" << endl;
+    }
+
+    return 0;
+}
