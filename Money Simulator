@@ -1,1 +1,100 @@
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <string>
+using namespace std;
 
+double money = 0;
+int multiplier = 1;
+bool running = true;
+int e;
+int e2;
+int e3;
+
+//Incremento do dinheiro a partir dos sec reais
+void dinheiro(){
+    while (running) {
+        money += multiplier;
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+}
+
+//Object with attributes (multiplier, description)
+class clicks {
+private:
+    string multiplier;
+    string description;
+    int price;
+
+    public:
+    clicks(string multiplier, string description, int price) {
+        this->multiplier = multiplier;
+        this->description = description;
+        this->price = price;
+    }
+    string get_multiplier() {
+        return multiplier;
+    }
+    //This method acess private attribute
+    string get_description() {
+        return description;
+    }
+    int get_price() {
+        return price;
+    }
+    //This ill show a model of message and attributes of object
+    void show_item() {
+        cout << "Price: " << price << "$" <<  endl << "Multiplier: " << multiplier << endl << "Description: " << description << endl;
+    }
+};
+
+int main() {
+    //Initializate "dinheiro" in another thread
+    thread t(dinheiro);
+
+    begin:
+    cout << "========== Menu ==========" << endl <<  "Shop [1]   Upgrades[2]  Your money[3]   Exit[4]" << endl ;
+    cin >> e;
+
+    switch (e) {
+        case 1:
+            cout << "========== Shop ==========" << endl;
+            cout << "Clicker[1]" << endl;
+            cin >> e2;
+            switch (e2) {
+                case 1:
+                    //Defines the attributes that will be shown
+                    clicks myclicks("2X", "Where are the clicks coming from? Increase your money gain.", 5);
+                    //call "show_item" function model message
+                    myclicks.show_item();
+                    cout << "Buy [1]  /  Exit[2]" << endl;
+                    cin >> e3;
+                    switch (e3) {
+                        case 1:
+                            if (money < 5) {
+                                cout << "Insufficient money" << endl;
+                                goto begin;
+                            }
+                            money = money - 5;
+                            multiplier += 1;
+                            cout << "===Stats===" << endl << "total money: " << money << endl << "Multiplier: " << multiplier << endl;
+                            goto begin;
+                        case 2:
+                            return 0;
+                    }
+            }
+            break;
+        case 2:
+            cout << "========== Upgrades ==========" << endl;
+            break;
+        case 3:
+            cout << "Current money: " << money << endl;
+            break;
+            case 4:
+            return 0;
+    }
+    //Close "dinheiro" condition
+    running = false;
+    t.join();
+    return 0;
+}
