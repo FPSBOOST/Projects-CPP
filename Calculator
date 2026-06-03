@@ -1,0 +1,187 @@
+#include <iostream>
+using namespace std;
+
+#define pi 3.14
+#define consumoMinimo 25
+#define consumoMedio 45
+#define consumoMaximo 75
+
+int main() {
+    int e;
+    int e2;
+    int lado;
+    int lado2;
+    int lado3;
+    int gastoM;
+    int gastoM2;
+    int consumo;
+    int esgoto;
+    int base;
+    int delta;
+    int raio;
+    int raiz;
+    int raiz2;
+    int altura;
+    double perimetro;
+    double area;
+    double volume;
+
+    cout << "C-Kerb" << endl;
+    cout << endl << "Perimetro[1]     "  << "Area[2]     " << "Volume[3]     " << "Equacao[4]     " << "Conta de Agua[5]" << endl;
+    cin >> e;
+
+    switch (e) {
+        case 1:
+            cout << "Qual figura voce deseja calcular o perimetro?" << endl << "Quadrado[1]     " << "Retangulo[2]     " << "Triangulo[3]     " << "Circulo[4]" << endl;
+            cin >> e;
+            if (e == 1) {
+                cout << "Qual a medida dos lados?" << endl;
+                cin >> lado;
+                perimetro = 4 * lado;
+                cout << "Seu perimetro e: " << perimetro << endl;
+            }
+            if (e == 2) {
+                cout << "Qual a medida da altura e da base?" << endl;
+                cin >> altura;
+                cin >> base;
+                perimetro = 2 * (base + altura);
+                cout << "Seu perimetro e: " << perimetro << endl;
+
+            }
+            if (e == 3) {
+                cout << "Qual tipo de triangulo deseja calcular?" << endl;
+                cout << "Triangulo equilatero[1]     " << "Triangulo escaleno[2]" << endl;
+                cin >> e2;
+                if (e2 == 1) {
+                    cout << "Qual a medida dos lados?" << endl;
+                    cin >> lado;
+                    cin >> lado2;
+                    cin >> lado3;
+                    perimetro = lado + lado2 + lado3;
+                    cout << "Seu perimetro e: " << perimetro << endl;
+                }else {
+                    cout << "Qual a medida dos lados?" << endl;
+                    cin >> lado;
+                    perimetro = 3 * lado;
+                    cout << "Seu perimetro e: " << perimetro << endl;
+                }
+            }
+            if (e == 4) {
+                cout << "Qual o seu raio?" << endl;
+                cin >> raio;
+                perimetro = 2 * pi * raio;
+                cout << "Seu perimetro e: " << perimetro << endl;
+            }
+            break;
+
+        case 2:
+            cout << "Qual figura voce deseja calcular a area?" << endl << "Quadrado[1]     " << "Retangulo[2]     " << "Triangulo[3]     " << "Circulo[4]" << endl;
+            cin >> e;
+            if (e == 1) {
+                cout << "Qual a medida dos lados?" << endl;
+                cin >> lado;
+                area = lado * lado;
+                cout << "Sua area e: " << area << endl;
+
+            }
+            if (e == 2) {
+                cout << "Qual a medida da altura e da base?" << endl;
+                cin >> altura;
+                cin >> base;
+                area = altura * base;
+                cout << "Sua area e: " << area << endl;
+            }
+            if (e == 3) {
+                cout << "Qual a medida da altura e da base?" << endl;
+                cin >> altura;
+                cin >> base;
+                area = (altura * base) / 2;
+                cout << "Sua area e: " << area << endl;
+            }
+            if (e == 4) {
+                cout << "Qual o seu raio?" << endl;
+                cin >> raio;
+                area = pi * (raio * raio);
+                cout << "Sua area e: " << area << endl;
+            }
+            break;
+
+        case 3:
+            cout << "Qual figura voce deseja calcular o volume?" << endl << "Cubo[1]     " << "Retangulo[2]     " << "Circulo[3]" << endl;
+            cin >> e;
+            if (e == 1) {
+                cout << "Qual a medida da aresta?" << endl;
+                cin >> lado;
+                volume = lado * lado * lado;
+                cout << "Seu volume e: " << volume << endl;
+            }
+            if (e == 2) {
+                cout << "Qual a medida da altura e da base?" << endl;
+                cin >> altura;
+                cin >> base;
+                area = altura * base;
+                volume = area * altura;
+                cout << "Seu volume e: " << volume << endl;
+            }
+            if (e == 3) {
+                cout << "Qual o seu raio?" << endl;
+                cin >> raio;
+                volume = 4 * pi * (raio * raio * raio) / 3;
+                cout << "Seu volume e: " << volume << endl;
+
+            }
+            break;
+
+        case 4:
+            cout << "Escolha o tipo da funcao: " << endl << "Funcao afim[1]     " << "Funcao quadratica[2]" << endl;
+            cin >> e;
+            if (e == 1) {
+                cout << "Qual o valor de A e de B?" << endl;
+                cin >> lado;
+                cin >> lado2;
+                cout << "A seguinte funcao foi formada: f(x) = " << lado << ".x + " << lado2 << " = 0" << endl;
+                area = lado2 / lado;
+                cout << "x = " << area << endl;
+            }
+            if (e == 2) {
+                cout << "Qual o valor de A,B,C?" << endl;
+                cin >> lado;
+                cin >> lado2;
+                cin >> lado3;
+                cout << "A seguinte funcao foi formada: f(x) = " << lado << ".x2 + " <<  lado2 << "x + " << lado3 << " = 0" << endl;
+                delta = lado2 * lado2 - (4 * lado * lado3) ;
+                raiz =  (-lado2 + delta) /2;
+                raiz2 =  (-lado2 - delta) /2;
+                cout << "Raiz = " << raiz << " Raiz2 = " << raiz2 << endl;
+            }
+            break;
+
+            case 5:
+            cout << "Qual a quantidade da leitura anterior e da atual: " << endl;
+            cin >> gastoM;
+            cin >> gastoM2;
+            gastoM2 = gastoM2 - gastoM;
+            esgoto = (gastoM2 * 80) / 100;
+
+            if (gastoM2 <= gastoM) {
+                cout << "Nao teve aumento na conta." << endl;
+                return 0;
+            }
+
+            if (gastoM2 <= 10) {
+                consumo = consumoMinimo + esgoto;
+                cout << "Seu consumo de agua foi: " << consumo << "R$" << endl;
+            }
+            if (gastoM2 >= 11 && gastoM2 <= 24 ) {
+                consumo = consumoMedio + esgoto;
+                cout << "Seu consumo de agua foi: " << consumo << "R$" << endl;
+            }
+            if (gastoM2 >= 25) {
+                consumo = consumoMaximo + esgoto;
+                cout << "Seu consumo de agua foi: " << consumo << "R$" << endl;
+            }
+
+
+
+    }
+}
