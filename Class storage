@@ -1,0 +1,49 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+
+// Cria uma classe chamada "Usuario"
+class Usuario  {
+public:
+    string nome;
+    string email;
+    string password;
+};
+
+//Função de cadastro de usuarios/criação de arquivo .txt que armazena as informações/leitura do arquivo .txt
+void Cadastrar () {
+    Usuario user;
+
+    cout << "Nome: ";
+    cin >> user.nome;
+    cout << "Email: ";
+    cin >> user.email;
+    cout << "Password: ";
+    cin >> user.password;
+
+    //condicional para a criação do arquivo .txt e leitura
+    if (user.email != "" and user.email != "" and user.password != "") {
+        ofstream users_list ("users.txt");
+        users_list << user.nome << endl << user.email << endl << user.password;
+        users_list.close();
+        //cria uma string para ler o arquivo .txt
+        string myText;
+
+        //Lê o arquivo .txt criado
+        ifstream users_list_reader ("users.txt");
+        while (getline (users_list_reader, myText)) {
+            cout << myText << endl;
+            users_list.close();
+        }
+    }
+
+
+}
+
+
+int main() {
+    Usuario user;
+    cout << "Cadastre o seu usuario de acesso: " << endl;
+    Cadastrar();
+}
