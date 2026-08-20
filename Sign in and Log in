@@ -1,0 +1,98 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+
+// Cria uma classe chamada "Usuario"
+class Usuario  {
+public:
+    string nome;
+    string email;
+    string password;
+};
+
+//Função de cadastro de usuarios/criação de arquivo .txt que armazena as informações/leitura do arquivo .txt
+void Cadastrar () {
+    Usuario user;
+
+    cout << "Nome: ";
+    cin >> user.nome;
+    cout << "Email: ";
+    cin >> user.email;
+    cout << "Password: ";
+    cin >> user.password;
+
+    //condicional para a criação do arquivo .txt e leitura
+    if (user.email != "" and user.email != "" and user.password != "") {
+        ofstream users_list ("users.txt");
+        users_list << user.nome << " " << user.email << " " << user.password;
+        users_list.close();
+        //cria uma string para ler o arquivo .txt
+        string myText;
+
+        //Lê o arquivo .txt criado
+        ifstream users_list_reader ("users.txt");
+        while (getline (users_list_reader, myText)) {
+            cout << myText << endl;
+            users_list.close();
+
+        }
+    }
+
+
+}
+
+void Logar () {
+    Usuario user;
+    cout << "Nome de Usuario:" << endl;
+    cin >> user.nome;
+    cout << "Email de Usuario:" << endl;
+    cin >> user.email;
+    cout << "Senha de Usuario:" << endl;
+    cin >> user.password;
+
+    //abre o .txt para leitura
+    ifstream users_list_reader ("users.txt");
+    //criação de vars de login de tipo texto
+    string nome_login;
+    string email_login;
+    string password_login;
+
+    //vai ler cada var no .txt com o delimitador ' ' <- null e pular para o proximo
+    getline(users_list_reader, nome_login, ' ');
+    getline(users_list_reader, email_login, ' ');
+    getline(users_list_reader, password_login, ' ');
+
+    //condicional de login
+    if (nome_login == user.nome and email_login == user.email and password_login == user.password) {
+        cout << "Voce logou na sua conta!" << endl;
+
+    }if (nome_login != user.nome ) {
+        cout << "Nome de Usuario Incorreto!" << endl;
+        }if (email_login != user.email) {
+            cout << "Email de Usuario Incorreto!" << endl;
+        } if (password_login != user.password) {
+            cout << "Password de Usuario Incorreto!" << endl;
+        }
+     }
+
+/*/ cout << "Nome de Usuario:" << nome_login << endl;
+    cout << "Email de Usuario:" << email_login << endl;
+    cout << "Senha de Usuario:" << password_login << endl; /*/
+
+int main() {
+    inicio:
+    Usuario user;
+    int Escolha;
+    cout << "Cadastre/logue o seu usuario de acesso: " << endl << "Cadastrar [0] | Logar [1]";
+    cin >> Escolha;
+
+    if (Escolha == 0) {
+        Cadastrar();
+        goto inicio;
+    }if (Escolha == 1) {
+        Logar();
+    }else if (Escolha > 1) {
+        cout << "Opçao invalida!" << endl;
+    }
+}
