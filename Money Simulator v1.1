@@ -1,0 +1,275 @@
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <string>
+using namespace std;
+
+//Currencys
+double money = 0;
+int rebirth = 0;
+int ascension = 0;
+double discount;
+
+
+//Custs
+int long long rebirth_cust = 1000;
+int long long rebirth_cust_d = 1000;
+int long long ascension_cust = 10000000;
+
+//Multipliers
+double multiplier = 1;
+double rebirth_multiplier = 10;
+double total_multiplier;
+double ascension_multiplier = 10000;
+
+//Running condition of game
+bool running = true;
+
+//Chooses and others
+int e;
+int e2;
+int e3;
+int e4;
+int e5;
+int e6;
+
+//Skill Tree Abilities
+int Future_investments_A; // Amount of the ability possessed
+int long long Future_investments_cust = 5000;
+double Future_investments_discount = 0.1; // discount of 10%
+
+//Increment of money from real sec
+void dinheiro(){
+    while (running) {
+        money += multiplier;
+        if (rebirth != 0) {
+            money += rebirth_multiplier * rebirth;
+        }
+        if (ascension != 0) {
+            money += ascension_multiplier * ascension;
+        }
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+}
+
+//Object with attributes (multiplier, description)
+class clicks {
+private:
+    string multiplier;
+    string description;
+    int price;
+
+    public:
+    clicks(string multiplier, string description, int price) {
+        this->multiplier = multiplier;
+        this->description = description;
+        this->price = price;
+    }
+    string get_multiplier() {
+        return multiplier;
+    }
+    //This method acess private attribute
+    string get_description() {
+        return description;
+    }
+    int get_price() {
+        return price;
+    }
+
+    //This ill show a model of message and attributes of object
+    void show_item() {
+        cout << "Price: " << price << "$" <<  endl << "Multiplier: " << multiplier << endl << "Description: " << description << endl;
+    }
+};
+
+class granny {
+private:
+    string multiplier;
+    string description;
+    int price;
+
+public:
+    granny(string multiplier, string description, int price) {
+        this->multiplier = multiplier;
+        this->description = description;
+        this->price = price;
+    }
+    string get_multiplier() {
+        return multiplier;
+    }
+    string get_description() {
+        return description;
+    }
+    int get_price() {
+        return price;
+    }
+    void show_item() {
+        cout << "Price: " << price << "$" <<  endl << "Multiplier: " << multiplier << endl << "Description: " << description << endl;
+    }
+};
+
+int main() {
+    //Initializate "dinheiro" in another thread
+    thread t(dinheiro);
+
+
+    begin:
+    cout << "==========|  Menu  |==========" << endl <<  "Shop [1]   Upgrades[2]  Stats[3]   Exit[4]" << endl ;
+    cin >> e;
+
+        if (e == 1) {
+            cout << "==========| Shop |==========" << endl;
+            cout << "Clicker[1]" << " " << "Grannys[2]" << endl;
+            cin >> e2;
+        }
+    if (e == 2) {
+        cout << "==========| Upgrades |==========" << endl;
+        cout << "Rebirth[1]" << " " << "Ascension[2]" << " " << "Skill Tree[3]" << endl;
+        cin >> e4;
+
+        if (e4 == 1) {
+            if (ascension > 0) {
+                discount = 0;
+                rebirth_cust_d = rebirth_cust;
+            }
+            cout << "Do you really wanna rebirth?" << endl << "Multiplier: 10X" << endl << "Description: Angelic singing calls its essence. Reborn to be able to get rid of sin. " << endl << "Price: $" << rebirth_cust_d << endl << "Yes[1]" << " " << "No[2]" << endl;
+            cin >> e3;
+            if (e3 != 1) {
+                goto begin;
+            }
+            if (e3 == 1) {
+                if (money < rebirth_cust_d) {
+                  cout << "Insufficient money! U need: $" <<  rebirth_cust_d - money  << endl;
+                    goto begin;
+                }
+                if (Future_investments_A > 0) {
+                    discount = rebirth_cust_d;
+                    discount *= Future_investments_discount;
+                    rebirth_cust_d -= discount;
+                    rebirth = rebirth + 1;
+                    money = 0;
+                    multiplier = 1;
+                    rebirth_cust_d *= rebirth;
+                }
+                if (discount >= rebirth_cust_d) {
+                    rebirth_cust_d = discount;
+                }
+                if (Future_investments_A == 0) {
+                    rebirth = rebirth + 1;
+                    money = 0;
+                    multiplier = 1;
+                    rebirth_cust_d *= rebirth;
+                }
+                cout << "Now u need: $" << rebirth_cust_d << endl;
+                goto begin;
+            }
+            }
+        {
+            if (e4 == 2) {
+                cout << "Do you really wanna ascend?" << endl << "Multiplier: 10000X" << endl << "Description: The trumpets call your name, obey and serve them and ascend to the heavens" << endl << "Price: $" << ascension_cust << endl << "Yes[1]" << " " << "No[2]" << endl;
+                cin >> e3;
+                if (e3 != 1) {
+                    goto begin;
+                }
+                if (e3 == 1) {
+                    if (money < ascension_cust) {
+                        cout << "Insufficient money! U need: $" << ascension_cust - money << endl;
+                        goto begin;
+                    }
+                    ascension = ascension + 1;
+                    money = 0;
+                    multiplier = 1;
+                    rebirth = 0;
+                    ascension_cust *= ascension;
+                    cout << "Now u need: $" << ascension_cust << endl;
+                    goto begin;
+                }
+            }
+            if (e4 == 3) {
+                cout << "Future investments[1]" << endl;
+                cout << "Sale off[2]" << endl;
+                cin >> e5;
+
+                if (e5 == 1) {
+                    if (Future_investments_A == 5) {
+                        cout << "Max level reached: 50% OFF" << endl;
+                        goto begin;
+                    }
+                    cout << "Skill name: Future investments" << endl << "Description: large investments lead to higher profits in the future. (reduces the cost of rebirth by 10%)" << endl << "Price: " << Future_investments_cust << endl << "Buy[1]" << " " << "Exit[2]" << endl;
+                   cin >> e6;
+                    if (e6 == 1) {
+                        if (money < Future_investments_cust) {
+                            cout << "Insufficient money!" << endl;
+                            goto begin;
+                        }
+                        Future_investments_A = Future_investments_A + 1;
+                        Future_investments_cust *= Future_investments_A * 10;
+                        Future_investments_discount *= Future_investments_A;
+                        goto begin;
+                        if (e6 == 2) {
+                            goto begin;
+                        }
+                    }
+                }
+            }
+        }
+    }
+        if (e == 3) {
+            cout << "Your money: " << money << endl << "Multiplier: " << multiplier << endl << "Rebirths: " << rebirth  << endl << "Ascensions: " << ascension << endl;
+
+            if (rebirth > 0 && ascension < 1) {
+                cout << "Total multiplier: " <<  (rebirth_multiplier * rebirth) + multiplier  << endl;
+            }
+            if (rebirth < 1 && ascension < 1) {
+                cout << "Total multiplier: " << multiplier << endl;
+            }
+            if ( rebirth < 1 && ascension >= 1) {
+                cout << "Total multiplier: " <<  (ascension_multiplier * ascension) + multiplier << endl;
+            }
+            if (rebirth >= 1 && ascension >= 1) {
+                cout << "Total multiplier: " <<  (rebirth_multiplier * rebirth) + (ascension_multiplier * ascension ) + multiplier << endl;
+            }
+            goto begin;
+        }
+                if (e2 == 1) {
+                    //Defines the attributes that will be shown
+                    clicks myclicks("1X", "Where are the clicks coming from? Increase your money gain.", 5);
+                    //call "show_item" function model message
+                    myclicks.show_item();
+                    cout << "Buy [1]  /  Exit[2]" << endl;
+                    cin >> e3;
+                }
+                if (e2 == 2) {
+                    granny mygranny("5X", "Grannys wanna help u son!", 100);
+                    mygranny.show_item();
+                    cout << "Buy [1]  /  Exit[2]" << endl;
+                    cin >> e3;
+                }
+                    if (e2 == 1 && e3 == 1) {
+                        if (money < 5) {
+                            cout << "Insufficient money!" << endl;
+                            goto begin;
+                        }
+                        money = money - 5;
+                        multiplier += 1;
+                        cout << "===Stats===" << endl << "total money: " << money << endl << "Multiplier: " << multiplier << endl;
+                        goto begin;
+                    }
+                if (e2 == 2 && e3 == 1) {
+                    if (money < 100) {
+                        cout << "Insufficient money!" << endl;
+                        goto begin;
+                    }
+                    money = money - 100;
+                    multiplier += 5;
+                    cout << "===Stats===" << endl << "total money: " << money << endl << "Multiplier: " << multiplier << endl;
+                    goto begin;
+                }
+                if (e2 == 1 && e3 == 2 || e2 == 2 && e3 == 2) {
+                    goto begin;
+                }
+            //Close "dinheiro" condition
+            running = false;
+            t.join();
+            return 0;
+}
